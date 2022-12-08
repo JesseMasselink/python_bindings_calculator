@@ -1,16 +1,40 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+print("Please enter two numbers")
 
+num1 = input("Enter the first number: ")
+num2 = input("Enter the second number: ")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+num1 = float(num1)
+num2 = float(num2)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print("First number is",num1)
+print("Second number is",num2)
+
+print("What operation would you like to perform?")
+print("1. Addition")
+print("2. Subtraction")
+print("3. Multiplication")
+print("4. Division")
+print("5. Exponentiation")
+
+operations = {
+  "1": (num1 + num2, "addition"),
+  "2": (num1 - num2, "subtraction"),
+  "3": (num1 * num2, "multiplication"),
+  "4": (num1 / num2, "division"),
+  "5": (num1 ** num2, "exponentiation")
+}
+
+choice = input("Enter your choice: ")
+
+result, operation_name = operations.get(choice, (None, None))
+
+if result is None:
+  print("Error: Invalid choice")
+else:
+  # Before we print the result of division, we'll check for division by zero
+  if choice == "4" and num2 == 0:
+      print("Error: Cannot divide by zero")
+  else:
+      print("The result of the", operation_name, "operation is:", result)
