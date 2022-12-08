@@ -39,6 +39,16 @@ def print_banner(msg):
     print("= {} ".format(msg))
 
 @invoke.task()
+def build_cppadd(c):
+    """Build the shared library for the sample C++ code"""
+    print_banner("Building C++ Library")
+    invoke.run(
+        "g++ -O3 -Wall -Werror -shared -std=c++11 -fPIC cppadd.cpp "
+        "-o libcppadd.so "
+    )
+    print("* Complete")
+
+@invoke.task()
 def build_cppsub(c):
     """Build the shared library for the sample C++ code"""
     print_banner("Building C++ Library")
@@ -56,11 +66,11 @@ def compile_python_module(cpp_name, extension_name):
         "-I . "
         "{0} "
         "-o {1}`python3-config --extension-suffix` "
-        "-L. -lcppsub -Wl,-rpath,.".format(cpp_name, extension_name)
+        "-L. -lcppsub -lcppadd -Wl,-rpath,.".format(cpp_name, extension_name)
     )
 
 
-@invoke.task(build_cppsub)
+@invoke.task(build_cppsub, build_cppadd)
 def build_pybind11(c):
     """Build the pybind11 wrapper library"""
     print_banner("Building PyBind11 Module")
@@ -76,6 +86,7 @@ def test_pybind11(c):
 
 @invoke.task(
     clean,
+    build_cppadd,
     build_cppsub,
     build_pybind11,
     test_pybind11,
