@@ -7,5 +7,7 @@ if __name__ == "__main__":
 
     answer   = pybind11_example.cpp_add(x, y)
     answer_1 = pybind11_example.cpp_sub(x, y)
-    print(f"    In Python: int: {x} float {y:.1f} return val {answer:.1f}")
-    print(f"    In Python: int: {x} float {y:.1f} return val {answer_1:.1f}")
+    answer_2 = pybind11_example.cpp_mult(x, y)
+    print(f"    In Python: int: {x} added to float {y:.1f} return val {answer:.1f}")
+    print(f"    In Python: int: {x} with subtracted float {y:.1f} return val {answer_1:.1f}")
+    print(f"    In Python: int: {x} multiplied by float {y:.1f} return val {answer_2:.1f}")

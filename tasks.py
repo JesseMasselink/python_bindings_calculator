@@ -58,6 +58,15 @@ def build_cppsub(c):
     )
     print("* Complete")
 
+@invoke.task()
+def build_cppmult(c):
+    """Build the shared library for the sample C++ code"""
+    print_banner("Building C++ Library")
+    invoke.run(
+        "g++ -O3 -Wall -Werror -shared -std=c++11 -fPIC cppmult.cpp "
+        "-o libcppmult.so "
+    )
+    print("* Complete")
 
 def compile_python_module(cpp_name, extension_name):
     invoke.run(
@@ -66,11 +75,11 @@ def compile_python_module(cpp_name, extension_name):
         "-I . "
         "{0} "
         "-o {1}`python3-config --extension-suffix` "
-        "-L. -lcppsub -lcppadd -Wl,-rpath,.".format(cpp_name, extension_name)
+        "-L. -lcppadd -lcppsub -lcppmult -Wl,-rpath,.".format(cpp_name, extension_name)
     )
 
 
-@invoke.task(build_cppsub, build_cppadd)
+@invoke.task(build_cppsub, build_cppadd, build_cppmult) #, build_cppadd
 def build_pybind11(c):
     """Build the pybind11 wrapper library"""
     print_banner("Building PyBind11 Module")
@@ -88,6 +97,7 @@ def test_pybind11(c):
     clean,
     build_cppadd,
     build_cppsub,
+    build_cppmult,
     build_pybind11,
     test_pybind11,
 )
