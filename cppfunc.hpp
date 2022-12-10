@@ -12,7 +12,8 @@ EXPORT_SYMBOL float cppadd(float int_param, float float_param);
 EXPORT_SYMBOL float cppsub(float int_param, float float_param);
 EXPORT_SYMBOL float cppmult(float int_param, float float_param);
 EXPORT_SYMBOL float cppdev(float int_param, float float_param);
-
+EXPORT_SYMBOL float cppsquare(float int_param);
+EXPORT_SYMBOL float cppsqrt(float int_param);
 
 #ifdef __cplusplus
 }
