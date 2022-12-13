@@ -64,7 +64,7 @@ float cppsqrt(float int_param) {
 }
 
 int cppfib(int n){
-auto start = high_resolution_clock::now();
+
     if (n <= 1)
         return n;
     return cppfib(n - 1) + cppfib(n - 2);
