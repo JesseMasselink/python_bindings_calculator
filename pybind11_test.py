@@ -2,16 +2,18 @@
 import pybind11_example
 import timeit
 
-# def py_fibo(n):
-#    if n <= 1:
-#        return n
-#    else:
-#        return(py_fibo(n-1) + py_fibo(n-2))
+
+def py_fibo(n):
+    if n <= 1:
+        return n
+    else:
+        return py_fibo(n - 1) + py_fibo(n - 2)
+
 
 if __name__ == "__main__":
     # Sample data for our call:
     x, y = 6.5, 2.3
-    i = 10
+    i = 40
 
     # answer   = pybind11_example.cpp_add(x, y)
     # answer_1 = pybind11_example.cpp_sub(x, y)
@@ -23,7 +25,7 @@ if __name__ == "__main__":
     fib = pybind11_example.cpp_fib(i)
     stop = timeit.default_timer()
     start_1 = timeit.default_timer()
-    # py_fib = py_fibo(i)
+    py_fib = py_fibo(i)
     stop_1 = timeit.default_timer()
     # print(f"    In Python: int: {x} added to float {y:.1f} return val {answer:.1f}")
     # print(f"    In Python: int: {x} with subtracted float {y:.1f} return val {answer_1:.1f}")
